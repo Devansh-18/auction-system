@@ -57,6 +57,9 @@ const CreateRFQ = () => {
     try {
       const payload = {
         ...formData,
+        bidStartTime: new Date(formData.bidStartTime).toISOString(),
+        bidCloseTime: new Date(formData.bidCloseTime).toISOString(),
+        forcedCloseTime: new Date(formData.forcedCloseTime).toISOString(),
         triggerWindow: Number(formData.triggerWindow),
         extensionDuration: Number(formData.extensionDuration),
       };
