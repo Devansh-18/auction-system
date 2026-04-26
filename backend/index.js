@@ -15,12 +15,21 @@ connectDB();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: [
+    process.env.FRONTEND_URL_PROD,
+    process.env.FRONTEND_URL,
+  ]
+}));
 app.use(express.json());
 
 // API Routes
 app.use('/api/rfq', rfqRoutes);
 app.use('/api/rfq', bidRoutes);
+
+app.get('/', (req, res) => {
+  res.json({ status: 'OK', message: "Server is running fine." });
+});
 
 // Health check
 app.get('/api/health', (req, res) => {

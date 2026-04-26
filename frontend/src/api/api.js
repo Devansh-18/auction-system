@@ -14,8 +14,6 @@ const api = axios.create({
   },
 });
 
-// ==================== RFQ APIs ====================
-
 /**
  * Create a new RFQ
  * @param {Object} data - RFQ creation payload
