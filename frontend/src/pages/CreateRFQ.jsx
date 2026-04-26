@@ -55,11 +55,20 @@ const CreateRFQ = () => {
     setError('');
 
     try {
+      const parseLocal = (dateStr) => {
+        if (!dateStr) return null;
+        const [datePart, timePart] = dateStr.split('T');
+        if (!datePart || !timePart) return new Date(dateStr).toISOString();
+        const [year, month, day] = datePart.split('-');
+        const [hour, minute] = timePart.split(':');
+        return new Date(year, month - 1, day, hour, minute).toISOString();
+      };
+
       const payload = {
         ...formData,
-        bidStartTime: new Date(formData.bidStartTime).toISOString(),
-        bidCloseTime: new Date(formData.bidCloseTime).toISOString(),
-        forcedCloseTime: new Date(formData.forcedCloseTime).toISOString(),
+        bidStartTime: parseLocal(formData.bidStartTime),
+        bidCloseTime: parseLocal(formData.bidCloseTime),
+        forcedCloseTime: parseLocal(formData.forcedCloseTime),
         triggerWindow: Number(formData.triggerWindow),
         extensionDuration: Number(formData.extensionDuration),
       };
